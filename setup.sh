@@ -132,7 +132,7 @@ else
     sudo apt-get install -y python3-pip
 fi
 
-git clone https://github.com/Azure/azure-iot-sdk-python.git --recursive
+git clone --single-branch --branch v1-deprecated https://github.com/Azure/azure-iot-sdk-python.git --recursive
 cd azure-iot-sdk-python/build_all/linux
 ./setup.sh --python-version $PYTHON_VERSION
 ./build.sh --build-python $PYTHON_VERSION
