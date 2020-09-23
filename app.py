@@ -69,7 +69,7 @@ if not is_correct_connection_string():
     telemetry.send_telemetry_data(None, EVENT_FAILED, "Device connection string is not correct. Please check your connection string in config.py")
     sys.exit(0)
 
-MSG_TXT = "{\"deviceId\": " + config.DEVICE_ID + ",\"temperature\": %f,\"humidity\": %f,\"air_pressure\": %f}"
+MSG_TXT = "{\"deviceId\": \"" + config.DEVICE_ID + "\",\"temperature\": %f,\"humidity\": %f,\"air_pressure\": %f}"
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(config.GPIO_PIN_ADDRESS, GPIO.OUT)
