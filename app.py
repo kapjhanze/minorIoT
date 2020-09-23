@@ -67,14 +67,14 @@ def is_correct_connection_string():
     else:
         return False
 
-CONNECTION_STRING = sys.argv[1]
+CONNECTION_STRING = config.IOT_CONNECTION_STRING
 
 if not is_correct_connection_string():
     print ( "Device connection string is not correct." )
-    telemetry.send_telemetry_data(None, EVENT_FAILED, "Device connection string is not correct.")
+    telemetry.send_telemetry_data(None, EVENT_FAILED, "Device connection string is not correct. Please check your connection string in config.py")
     sys.exit(0)
 
-MSG_TXT = "{\"deviceId\": \"Raspberry Pi - Python\",\"temperature\": %f,\"humidity\": %f,\"air_pressure\": %f}"
+MSG_TXT = "{\"deviceId\": " + config.DEVICE_ID + ",\"temperature\": %f,\"humidity\": %f,\"air_pressure\": %f}"
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(config.GPIO_PIN_ADDRESS, GPIO.OUT)
@@ -242,9 +242,8 @@ def led_blink():
     GPIO.output(config.GPIO_PIN_ADDRESS, GPIO.LOW)
 
 def usage():
-    print ( "Usage: iothub_client_sample.py -p <protocol> -c <connectionstring>" )
+    print ( "Usage: iothub_client_sample.py -p <protocol> ")
     print ( "    protocol        : <amqp, amqp_ws, http, mqtt, mqtt_ws>" )
-    print ( "    connectionstring: <HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>>" )
 
 def parse_iot_hub_name():
     m = re.search("HostName=(.*?)\.", CONNECTION_STRING)
